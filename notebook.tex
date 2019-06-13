@@ -1,0 +1,2899 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\TeX{\mbox{T\kern-.14em\lower.5ex\hbox{E}\kern-.115em X}}
+    \def\LaTeX{\mbox{L\kern-.325em\raise.21em\hbox{$\scriptstyle{A}$}\kern-.17em}\TeX}
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{intro-ml-stepik}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \subsubsection{\texorpdfstring{Notebook по курсу
+\href{https://stepik.org/course/4852}{"Введение в машинное
+обучение"}}{Notebook по курсу "Введение в машинное обучение"}}\label{notebook-ux43fux43e-ux43aux443ux440ux441ux443-ux432ux432ux435ux434ux435ux43dux438ux435-ux432-ux43cux430ux448ux438ux43dux43dux43eux435-ux43eux431ux443ux447ux435ux43dux438ux435}
+
+    \subsubsection{Модуль 1.4 Pandas,
+DataFrames}\label{ux43cux43eux434ux443ux43bux44c-1.4-pandas-dataframes}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+
+    \paragraph{Чтение CSV
+файла}\label{ux447ux442ux435ux43dux438ux435-csv-ux444ux430ux439ux43bux430}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{students\PYZus{}perfomance} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://stepik.org/media/attachments/course/4852/StudentsPerformance.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)} \PY{c+c1}{\PYZsh{}вывод 3 первых строк}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:}    gender race/ethnicity parental level of education     lunch  \textbackslash{}
+         0  female        group B           bachelor's degree  standard   
+         1  female        group C                some college  standard   
+         2  female        group B             master's degree  standard   
+         
+           test preparation course  math score  reading score  writing score  
+         0                    none          72             72             74  
+         1               completed          69             90             88  
+         2                    none          90             95             93  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{5}\PY{p}{]} \PY{c+c1}{\PYZsh{}вывод 0\PYZhy{}2 строк, по 0\PYZhy{}5 столбцам}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}    gender race/ethnicity parental level of education     lunch  \textbackslash{}
+         0  female        group B           bachelor's degree  standard   
+         1  female        group C                some college  standard   
+         
+           test preparation course  
+         0                    none  
+         1               completed  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}\PY{p}{]} \PY{c+c1}{\PYZsh{}вывод 1, 3, 5 строк, по столбцам 0, 5, 6}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}    gender  math score  reading score
+         1  female          69             90
+         3    male          47             57
+         5  female          71             83
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{students\PYZus{}perfomance\PYZus{}with\PYZus{}names} \PY{o}{=} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{students\PYZus{}perfomance\PYZus{}with\PYZus{}names}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}    gender race/ethnicity parental level of education         lunch  \textbackslash{}
+         0  female        group B           bachelor's degree      standard   
+         3    male        group A          associate's degree  free/reduced   
+         4    male        group C                some college      standard   
+         
+           test preparation course  math score  reading score  writing score  
+         0                    none          72             72             74  
+         3                    none          47             57             44  
+         4                    none          76             78             75  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}присвоить индексы}
+         \PY{n}{students\PYZus{}perfomance\PYZus{}with\PYZus{}names}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sultan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Madina}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Amina}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}вывод по названию индекса и столбцов}
+         \PY{n}{students\PYZus{}perfomance\PYZus{}with\PYZus{}names}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sultan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Madina}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:}         gender
+         Sultan  female
+         Madina    male
+\end{Verbatim}
+            
+    \subsubsection{Задача из модуля (шаг -
+10)}\label{ux437ux430ux434ux430ux447ux430-ux438ux437-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---10}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{titanic\PYZus{}passengers} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://stepik.org/media/attachments/course/4852/titanic.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{}кортеж (кол\PYZhy{}во строк, кол\PYZhy{}во столбцов)}
+         \PY{n}{titanic\PYZus{}passengers}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}35}]:} (891, 12)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{}вывод кол\PYZhy{}во столбцов по типу данных}
+         \PY{n}{titanic\PYZus{}passengers}\PY{o}{.}\PY{n}{get\PYZus{}dtype\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}38}]:} float64    2
+         int64      5
+         object     5
+         dtype: int64
+\end{Verbatim}
+            
+    \subsubsection{Модуль 1.5 Фильтрация
+данных}\label{ux43cux43eux434ux443ux43bux44c-1.5-ux444ux438ux43bux44cux442ux440ux430ux446ux438ux44f-ux434ux430ux43dux43dux44bux445}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}68}]:} \PY{n}{students\PYZus{}perfomance} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://stepik.org/media/attachments/course/4852/StudentsPerformance.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    У \emph{DataFrame} есть атрибута \emph{loc}, который поддерживает также
+\emph{boolean array}, например \textbf{df.loc{[}{[}True, False{]}{]}}
+
+    Выберем данные где, пол равен \textbf{female}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} students\PYZus{}perfomance.gender \PYZhy{} Pandas Series}
+         \PY{c+c1}{\PYZsh{} students\PYZus{}perfomance[\PYZsq{}gender\PYZsq{}] \PYZhy{} Pandas Series}
+         
+         \PY{c+c1}{\PYZsh{}students\PYZus{}perfomance.gender == \PYZsq{}female\PYZsq{} }
+         \PY{n}{query} \PY{o}{=} \PY{n}{students\PYZus{}perfomance}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{}все pandas series и сравнить ее с некоторым значением}
+         \PY{c+c1}{\PYZsh{} query \PYZhy{} Pandas Series, из True и False}
+         \PY{c+c1}{\PYZsh{}students\PYZus{}perfomance[query].head(5) }
+         \PY{c+c1}{\PYZsh{} Можем обратиться по loc или как словарю}
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{query}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{query}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)} \PY{c+c1}{\PYZsh{} Можем выбрать и разные слобцы}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}    gender  reading score
+         0  female             72
+         1  female             90
+         2  female             95
+         5  female             83
+         6  female             95
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{} Посмотреть среднее значение}
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{writing score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}или}
+         
+         \PY{n}{mean\PYZus{}writing\PYZus{}score} \PY{o}{=} \PY{n}{students\PYZus{}perfomance}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{writing score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+         \PY{n}{mean\PYZus{}writing\PYZus{}score}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} 68.054
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{students\PYZus{}perfomance}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{writing score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{mean\PYZus{}writing\PYZus{}score}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}    gender race/ethnicity parental level of education     lunch  \textbackslash{}
+         0  female        group B           bachelor's degree  standard   
+         1  female        group C                some college  standard   
+         2  female        group B             master's degree  standard   
+         4    male        group C                some college  standard   
+         5  female        group B          associate's degree  standard   
+         
+           test preparation course  math score  reading score  writing score  
+         0                    none          72             72             74  
+         1               completed          69             90             88  
+         2                    none          90             95             93  
+         4                    none          76             78             75  
+         5                    none          71             83             78  
+\end{Verbatim}
+            
+    \subparagraph{Комбинация условий для
+фильтрации}\label{ux43aux43eux43cux431ux438ux43dux430ux446ux438ux44f-ux443ux441ux43bux43eux432ux438ux439-ux434ux43bux44f-ux444ux438ux43bux44cux442ux440ux430ux446ux438ux438}
+
+Выражения в Pandas, \emph{and} - \textbf{\&}, \emph{or} -
+\textbf{\textbar{}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{query} \PY{o}{=} \PY{p}{(}\PY{n}{students\PYZus{}perfomance}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{writing score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{mean\PYZus{}writing\PYZus{}score}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{students\PYZus{}perfomance}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{query}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}    gender race/ethnicity parental level of education     lunch  \textbackslash{}
+         0  female        group B           bachelor's degree  standard   
+         1  female        group C                some college  standard   
+         2  female        group B             master's degree  standard   
+         5  female        group B          associate's degree  standard   
+         6  female        group B                some college  standard   
+         
+           test preparation course  math score  reading score  writing score  
+         0                    none          72             72             74  
+         1               completed          69             90             88  
+         2                    none          90             95             93  
+         5                    none          71             83             78  
+         6               completed          88             95             92  
+\end{Verbatim}
+            
+    \paragraph{Фильтрация через
+query}\label{ux444ux438ux43bux44cux442ux440ux430ux446ux438ux44f-ux447ux435ux440ux435ux437-query}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{c+c1}{\PYZsh{} переименуем колонки для удобной фильтрации}
+         
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{x}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{students\PYZus{}perfomance}\PY{p}{]}
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}69}]:}    gender race/ethnicity parental\_level\_of\_education         lunch  \textbackslash{}
+         0  female        group B           bachelor's degree      standard   
+         1  female        group C                some college      standard   
+         2  female        group B             master's degree      standard   
+         3    male        group A          associate's degree  free/reduced   
+         4    male        group C                some college      standard   
+         
+           test\_preparation\_course  math\_score  reading\_score  writing\_score  
+         0                    none          72             72             74  
+         1               completed          69             90             88  
+         2                    none          90             95             93  
+         3                    none          47             57             44  
+         4                    none          76             78             75  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{writing\PYZus{}score \PYZgt{} 74}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:}    gender race/ethnicity parental\_level\_of\_education     lunch  \textbackslash{}
+         1  female        group C                some college  standard   
+         2  female        group B             master's degree  standard   
+         4    male        group C                some college  standard   
+         5  female        group B          associate's degree  standard   
+         6  female        group B                some college  standard   
+         
+           test\_preparation\_course  math\_score  reading\_score  writing\_score  
+         1               completed          69             90             88  
+         2                    none          90             95             93  
+         4                    none          76             78             75  
+         5                    none          71             83             78  
+         6               completed          88             95             92  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}74}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{writing\PYZus{}score \PYZgt{} 74 \PYZam{} gender == }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{male}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}комбинированное условие}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}74}]:}    gender race/ethnicity parental\_level\_of\_education         lunch  \textbackslash{}
+         4    male        group C                some college      standard   
+         16   male        group C                 high school      standard   
+         24   male        group D           bachelor's degree  free/reduced   
+         34   male        group E                some college      standard   
+         35   male        group E          associate's degree      standard   
+         
+            test\_preparation\_course  math\_score  reading\_score  writing\_score  
+         4                     none          76             78             75  
+         16                    none          88             89             86  
+         24               completed          74             71             80  
+         34                    none          97             87             82  
+         35               completed          81             81             79  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}75}]:} \PY{n}{writing\PYZus{}score\PYZus{}query} \PY{o}{=} \PY{l+m+mi}{80}
+         
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{writing\PYZus{}score \PYZgt{} @writing\PYZus{}score\PYZus{}query}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}фильтрация через переменную}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}75}]:}     gender race/ethnicity parental\_level\_of\_education     lunch  \textbackslash{}
+         1   female        group C                some college  standard   
+         2   female        group B             master's degree  standard   
+         6   female        group B                some college  standard   
+         16    male        group C                 high school  standard   
+         34    male        group E                some college  standard   
+         
+            test\_preparation\_course  math\_score  reading\_score  writing\_score  
+         1                completed          69             90             88  
+         2                     none          90             95             93  
+         6                completed          88             95             92  
+         16                    none          88             89             86  
+         34                    none          97             87             82  
+\end{Verbatim}
+            
+    \paragraph{Отобрать колонки по каким нибудь
+признакам}\label{ux43eux442ux43eux431ux440ux430ux442ux44c-ux43aux43eux43bux43eux43dux43aux438-ux43fux43e-ux43aux430ux43aux438ux43c-ux43dux438ux431ux443ux434ux44c-ux43fux440ux438ux437ux43dux430ux43aux430ux43c}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}80}]:} \PY{c+c1}{\PYZsh{}по питоновски}
+         
+         \PY{n}{column\PYZus{}names} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{students\PYZus{}perfomance}\PY{p}{)}
+         \PY{n}{column\PYZus{}names} \PY{c+c1}{\PYZsh{}список наименований столбцов}
+         
+         \PY{n}{score\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{students\PYZus{}perfomance}\PY{p}{)} \PY{k}{if} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{i}\PY{p}{]}
+         \PY{n}{students\PYZus{}perfomance}\PY{p}{[}\PY{n}{score\PYZus{}columns}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}80}]:}    math\_score  reading\_score  writing\_score
+         0          72             72             74
+         1          69             90             88
+         2          90             95             93
+         3          47             57             44
+         4          76             78             75
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}по Pandas}
+        
+        \PY{n}{s} \PY{o}{=} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{n}{like}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{s}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}s = students\PYZus{}perfomance.filter(like=\PYZsq{}row\PYZus{}name\PYZsq{}, axis=0) \PYZsh{}axis = 0 \PYZhy{} фильтрация по строкам}
+        \PY{c+c1}{\PYZsh{}s.head()}
+\end{Verbatim}
+
+
+    \subsubsection{Задача из модуля (шаг -
+6)}\label{ux437ux430ux434ux430ux447ux430-ux438ux437-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---6}
+
+    У какой доли студентов из
+\href{'https://stepik.org/media/attachments/course/4852/StudentsPerformance.csv'}{датасэта}
+в колонке lunch указано free/reduced?
+
+Формат ответа десятичная дробь, например, 0.25
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://stepik.org/media/attachments/course/4852/StudentsPerformance.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \textbf{Вариант по питоновски}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{n}{query} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lunch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{free/reduced}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{free\PYZus{}reduced\PYZus{}count} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{query}\PY{p}{]}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{c+c1}{\PYZsh{}количество студентов (строк), где free/reduced}
+         \PY{n}{all\PYZus{}count} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{c+c1}{\PYZsh{}количество всех студентов}
+         
+         \PY{n}{result} \PY{o}{=} \PY{n}{free\PYZus{}reduced\PYZus{}count} \PY{o}{/} \PY{n}{all\PYZus{}count}
+         \PY{n}{result}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}40}]:} 0.355
+\end{Verbatim}
+            
+    \textbf{Вариант со статистикой - Нормалицазия}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lunch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lunch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{normalize}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}45}]:} standard        0.645
+         free/reduced    0.355
+         Name: lunch, dtype: float64
+\end{Verbatim}
+            
+    \subsubsection{Задача из модуля (шаг -
+7)}\label{ux437ux430ux434ux430ux447ux430-ux438ux437-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---7}
+
+Как различается
+\href{https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.mean.html}{среднее}
+и
+\href{https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.var.html}{дисперсия}
+оценок по предметам у групп
+\href{https://stepik.org/media/attachments/course/4852/StudentsPerformance.csv}{студентов}
+со стандартным или урезанным ланчем?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://stepik.org/media/attachments/course/4852/StudentsPerformance.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} показывает основные статистические характеристики}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:}        math score  reading score  writing score
+         count  1000.00000    1000.000000    1000.000000
+         mean     66.08900      69.169000      68.054000
+         std      15.16308      14.600192      15.195657
+         min       0.00000      17.000000      10.000000
+         25\%      57.00000      59.000000      57.750000
+         50\%      66.00000      70.000000      69.000000
+         75\%      77.00000      79.000000      79.000000
+         max     100.00000     100.000000     100.000000
+\end{Verbatim}
+            
+    \paragraph{Среднее оценок по предметам со стандартным
+обедом}\label{ux441ux440ux435ux434ux43dux435ux435-ux43eux446ux435ux43dux43eux43a-ux43fux43e-ux43fux440ux435ux434ux43cux435ux442ux430ux43c-ux441ux43e-ux441ux442ux430ux43dux434ux430ux440ux442ux43dux44bux43c-ux43eux431ux435ux434ux43eux43c}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{query1} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lunch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{standard}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{query1}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lunch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{writing score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} math score       70.034109
+         reading score    71.654264
+         writing score    70.823256
+         dtype: float64
+\end{Verbatim}
+            
+    \paragraph{Среднее оценок по предметам со урезанным
+обедом}\label{ux441ux440ux435ux434ux43dux435ux435-ux43eux446ux435ux43dux43eux43a-ux43fux43e-ux43fux440ux435ux434ux43cux435ux442ux430ux43c-ux441ux43e-ux443ux440ux435ux437ux430ux43dux43dux44bux43c-ux43eux431ux435ux434ux43eux43c}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{query2} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lunch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{free/reduced}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{query2}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lunch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{writing score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:} math score       58.921127
+         reading score    64.653521
+         writing score    63.022535
+         dtype: float64
+\end{Verbatim}
+            
+    \paragraph{Дисперсия оценок по предметам со стандартным
+обедом}\label{ux434ux438ux441ux43fux435ux440ux441ux438ux44f-ux43eux446ux435ux43dux43eux43a-ux43fux43e-ux43fux440ux435ux434ux43cux435ux442ux430ux43c-ux441ux43e-ux441ux442ux430ux43dux434ux430ux440ux442ux43dux44bux43c-ux43eux431ux435ux434ux43eux43c}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}64}]:} \PY{n}{query1} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lunch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{standard}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{query1}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lunch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{writing score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}64}]:} math score       186.418089
+         reading score    191.285560
+         writing score    205.620887
+         dtype: float64
+\end{Verbatim}
+            
+    \paragraph{Дисперсия оценок по предметам со урезанным
+обедом}\label{ux434ux438ux441ux43fux435ux440ux441ux438ux44f-ux43eux446ux435ux43dux43eux43a-ux43fux43e-ux43fux440ux435ux434ux43cux435ux442ux430ux43c-ux441ux43e-ux443ux440ux435ux437ux430ux43dux43dux44bux43c-ux43eux431ux435ux434ux43eux43c}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{n}{query2} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lunch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{free/reduced}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{query2}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lunch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{writing score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{var}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}61}]:} math score       229.824270
+         reading score    221.871139
+         writing score    238.202881
+         dtype: float64
+\end{Verbatim}
+            
+    \subsubsection{Модуль 1.6 Группировка данных и
+агрегация}\label{ux43cux43eux434ux443ux43bux44c-1.6-ux433ux440ux443ux43fux43fux438ux440ux43eux432ux43aux430-ux434ux430ux43dux43dux44bux445-ux438-ux430ux433ux440ux435ux433ux430ux446ux438ux44f}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        \PY{n}{students\PYZus{}perfomance} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://stepik.org/media/attachments/course/4852/StudentsPerformance.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}    gender race/ethnicity parental level of education         lunch  \textbackslash{}
+        0  female        group B           bachelor's degree      standard   
+        1  female        group C                some college      standard   
+        2  female        group B             master's degree      standard   
+        3    male        group A          associate's degree  free/reduced   
+        4    male        group C                some college      standard   
+        
+          test preparation course  math score  reading score  writing score  
+        0                    none          72             72             74  
+        1               completed          69             90             88  
+        2                    none          90             95             93  
+        3                    none          47             57             44  
+        4                    none          76             78             75  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}посчитаем среднее score\PYZhy{}ов в зависивости от полов студентов}
+         
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}результат сгруппированный DataFrame}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} <pandas.core.groupby.groupby.DataFrameGroupBy object at 0x7f5f15d9a780>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}пременили агрегацию mean}
+         \PY{c+c1}{\PYZsh{}среднее значение количественных переменных}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}         math score  reading score  writing score
+         gender                                          
+         female   63.633205      72.608108      72.467181
+         male     68.728216      65.473029      63.311203
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{}какие переменные использовать для агрегации}
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{aggregate}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}         math score
+         gender            
+         female   63.633205
+         male     68.728216
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}можно также использовать несколько переменных}
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{aggregate}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}         math score  reading score
+         gender                           
+         female   63.633205      72.608108
+         male     68.728216      65.473029
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}в результате мы получаем DataFrame с индексами, которые мы использовали для группировки}
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{aggregate}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}21}]:}         math score  reading score
+         gender                           
+         female   63.633205      72.608108
+         male     68.728216      65.473029
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{}as\PYZus{}index=False, с другими индексами}
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PYZbs{}
+             \PY{o}{.}\PY{n}{aggregate}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}    gender  math score  reading score
+         0  female   63.633205      72.608108
+         1    male   68.728216      65.473029
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PYZbs{}
+             \PY{o}{.}\PY{n}{aggregate}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)} \PYZbs{}
+             \PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}math\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}reading\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:}    gender  mean\_math\_score  mean\_reading\_score
+         0  female        63.633205           72.608108
+         1    male        68.728216           65.473029
+\end{Verbatim}
+            
+    \subparagraph{Tips по
+комментариям}\label{tips-ux43fux43e-ux43aux43eux43cux43cux435ux43dux442ux430ux440ux438ux44fux43c}
+
+Кстати, если подавать значения для ключей в виде списка, то можно,
+во-первых, выводить несколько статистик для одной переменной, а,
+во-вторых, колонки будут иметь названия в соответствии со статистикой.
+Вот такой код
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PYZbs{}
+             \PY{o}{.}\PY{n}{aggregate}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{std}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{std}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}    gender math score                  reading score         
+                         mean count        std           std min  max
+         0  female  63.633205   518  15.491453     14.378245  17  100
+         1    male  68.728216   482  14.356277     13.931832  23  100
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PYZbs{}
+             \PY{o}{.}\PY{n}{aggregate}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{std}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:}    gender math score reading score         
+                         mean           std min  max
+         0  female  63.633205     14.378245  17  100
+         1    male  68.728216     13.931832  23  100
+\end{Verbatim}
+            
+    \paragraph{Группировать по нескольким
+переменным}\label{ux433ux440ux443ux43fux43fux438ux440ux43eux432ux430ux442ux44c-ux43fux43e-ux43dux435ux441ux43aux43eux43bux44cux43aux438ux43c-ux43fux435ux440ux435ux43cux435ux43dux43dux44bux43c}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lunch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PYZbs{}
+             \PY{o}{.}\PY{n}{aggregate}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)} \PYZbs{}
+             \PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}math\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}reading\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:}    gender         lunch  mean\_math\_score  mean\_reading\_score
+         0  female  free/reduced        55.814815           67.386243
+         1  female      standard        68.124620           75.607903
+         2    male  free/reduced        62.457831           61.542169
+         3    male      standard        72.022152           67.537975
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lunch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PYZbs{}
+             \PY{o}{.}\PY{n}{aggregate}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)} \PYZbs{}
+             \PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}math\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}reading\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}сложно составной индекс}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:}                      mean\_math\_score  mean\_reading\_score
+         gender lunch                                            
+         female free/reduced        55.814815           67.386243
+                standard            68.124620           75.607903
+         male   free/reduced        62.457831           61.542169
+                standard            72.022152           67.537975
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{mean\PYZus{}scores} \PY{o}{=} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lunch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PYZbs{}
+             \PY{o}{.}\PY{n}{aggregate}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)} \PYZbs{}
+             \PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}math\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}reading\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{c+c1}{\PYZsh{}мульти индекс, состаящий из нескольких уровней}
+         \PY{n}{mean\PYZus{}scores}\PY{o}{.}\PY{n}{index}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:} MultiIndex(levels=[['female', 'male'], ['free/reduced', 'standard']],
+                    labels=[[0, 0, 1, 1], [0, 1, 0, 1]],
+                    names=['gender', 'lunch'])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{mean\PYZus{}scores}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{standard}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:}                  mean\_math\_score  mean\_reading\_score
+         gender lunch                                        
+         female standard         68.12462           75.607903
+\end{Verbatim}
+            
+    Преимущество мульти индекса
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{}сгруппировать по 2ув переменным}
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{race/ethnicity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} gender  race/ethnicity
+         female  group A           [50, 55, 41, 58, 51, 44, 71, 38, 49, 59, 47, 7{\ldots}
+                 group B           [72, 90, 71, 88, 38, 65, 18, 63, 53, 47, 79, 5{\ldots}
+                 group C           [69, 54, 67, 58, 66, 71, 33, 0, 60, 39, 73, 76{\ldots}
+                 group D           [62, 69, 74, 50, 75, 57, 59, 58, 61, 71, 73, 6{\ldots}
+                 group E           [56, 50, 82, 62, 63, 99, 42, 66, 75, 81, 83, 4{\ldots}
+         male    group A           [47, 78, 73, 39, 62, 80, 50, 54, 57, 77, 72, 6{\ldots}
+                 group B           [40, 69, 57, 59, 65, 67, 61, 44, 49, 79, 60, 9{\ldots}
+                 group C           [76, 58, 88, 46, 70, 55, 82, 53, 61, 49, 27, 7{\ldots}
+                 group D           [64, 40, 66, 44, 74, 88, 52, 58, 45, 63, 42, 6{\ldots}
+                 group E           [97, 81, 53, 77, 79, 30, 72, 66, 83, 87, 70, 1{\ldots}
+         Name: math score, dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{}получим топ 5 студентов по математики (male/female)}
+         
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)} \PY{c+c1}{\PYZsh{}сортировка}
+         
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)} \PYZbs{}
+             \PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}49}]:}      gender race/ethnicity parental level of education         lunch  \textbackslash{}
+         149    male        group E          associate's degree  free/reduced   
+         623    male        group A                some college      standard   
+         625    male        group D                some college      standard   
+         916    male        group E           bachelor's degree      standard   
+         306    male        group E                some college      standard   
+         451  female        group E                some college      standard   
+         458  female        group E           bachelor's degree      standard   
+         962  female        group E          associate's degree      standard   
+         114  female        group E           bachelor's degree      standard   
+         263  female        group E                 high school      standard   
+         
+             test preparation course  math score  reading score  writing score  
+         149               completed         100            100             93  
+         623               completed         100             96             86  
+         625               completed         100             97             99  
+         916               completed         100            100            100  
+         306               completed          99             87             81  
+         451                    none         100             92             97  
+         458                    none         100            100            100  
+         962                    none         100            100            100  
+         114               completed          99            100            100  
+         263                    none          99             93             90  
+\end{Verbatim}
+            
+    \paragraph{Tips с
+комментов}\label{tips-ux441-ux43aux43eux43cux43cux435ux43dux442ux43eux432}
+
+Если хочется отсортировать, например, в порядке возрастания по одной
+переменной, и в порядке убывания по другой, то достаточно лишь передать
+в аргумент ascending соответствующий лист:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{p}{[}\PY{k+kc}{True}\PY{p}{,} \PY{k+kc}{False}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:}      gender race/ethnicity parental level of education         lunch  \textbackslash{}
+         59   female        group C            some high school  free/reduced   
+         327    male        group A                some college  free/reduced   
+         596    male        group B                 high school  free/reduced   
+         980  female        group B                 high school  free/reduced   
+         76     male        group E            some high school      standard   
+         
+             test preparation course  math score  reading score  writing score  
+         59                     none           0             17             10  
+         327                    none          28             23             19  
+         596                    none          30             24             15  
+         980                    none           8             24             23  
+         76                     none          30             26             22  
+\end{Verbatim}
+            
+    \paragraph{Как создавать колонки в
+Pandas}\label{ux43aux430ux43a-ux441ux43eux437ux434ux430ux432ux430ux442ux44c-ux43aux43eux43bux43eux43dux43aux438-ux432-pandas}
+
+Есть несколько способов
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{students\PYZus{}perfomance}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{students\PYZus{}perfomance}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{students\PYZus{}perfomance}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{students\PYZus{}perfomance}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{writing score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}55}]:}    gender race/ethnicity parental level of education         lunch  \textbackslash{}
+         0  female        group B           bachelor's degree      standard   
+         1  female        group C                some college      standard   
+         2  female        group B             master's degree      standard   
+         3    male        group A          associate's degree  free/reduced   
+         4    male        group C                some college      standard   
+         
+           test preparation course  math score  reading score  writing score  \textbackslash{}
+         0                    none          72             72             74   
+         1               completed          69             90             88   
+         2                    none          90             95             93   
+         3                    none          47             57             44   
+         4                    none          76             78             75   
+         
+            total\_score  
+         0          218  
+         1          247  
+         2          278  
+         3          148  
+         4          229  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{c+c1}{\PYZsh{}еще один способ, сделать несколько колонок}
+         \PY{n}{students\PYZus{}perfomance} \PY{o}{=} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{assign}\PY{p}{(}\PY{n}{total\PYZus{}score\PYZus{}log} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{total\PYZus{}score}\PY{p}{)}\PY{p}{)}
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}57}]:}    gender race/ethnicity parental level of education         lunch  \textbackslash{}
+         0  female        group B           bachelor's degree      standard   
+         1  female        group C                some college      standard   
+         2  female        group B             master's degree      standard   
+         3    male        group A          associate's degree  free/reduced   
+         4    male        group C                some college      standard   
+         
+           test preparation course  math score  reading score  writing score  \textbackslash{}
+         0                    none          72             72             74   
+         1               completed          69             90             88   
+         2                    none          90             95             93   
+         3                    none          47             57             44   
+         4                    none          76             78             75   
+         
+            total\_score  total\_score\_log  
+         0          218         5.384495  
+         1          247         5.509388  
+         2          278         5.627621  
+         3          148         4.997212  
+         4          229         5.433722  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{c+c1}{\PYZsh{}удалим колонки или строки}
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lunch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}\PY{c+c1}{\PYZsh{}asix=1 \PYZhy{} по колонкам, axis=0 \PYZhy{} по строкам}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:}    gender race/ethnicity parental level of education test preparation course  \textbackslash{}
+         0  female        group B           bachelor's degree                    none   
+         1  female        group C                some college               completed   
+         2  female        group B             master's degree                    none   
+         3    male        group A          associate's degree                    none   
+         4    male        group C                some college                    none   
+         
+            math score  reading score  writing score  total\_score\_log  
+         0          72             72             74         5.384495  
+         1          69             90             88         5.509388  
+         2          90             95             93         5.627621  
+         3          47             57             44         4.997212  
+         4          76             78             75         5.433722  
+\end{Verbatim}
+            
+    \subsubsection{Задача из модуля (шаг -
+5)}\label{ux437ux430ux434ux430ux447ux430-ux438ux437-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---5}
+
+Пересчитаем число ног у героев игры Dota2! Сгруппируйте героев из
+\href{https://stepik.org/media/attachments/course/4852/dota_hero_stats.csv}{датасэта}
+по числу их ног (колонка \emph{legs}), и заполните их число в задании
+ниже.
+
+Данные взяты \href{https://api.opendota.com/api/heroes}{отсюда}, на этом
+же \href{https://www.opendota.com/}{сайте} можно найти больше
+разнообразных данных по Dota2.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://stepik.org/media/attachments/course/4852/dota\PYZus{}hero\PYZus{}stats.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:}    Unnamed: 0 attack\_type  id  legs  localized\_name  \textbackslash{}
+         0           0       Melee   1     2       Anti-Mage   
+         1           1       Melee   2     2             Axe   
+         2           2      Ranged   3     4            Bane   
+         3           3       Melee   4     2     Bloodseeker   
+         4           4      Ranged   5     2  Crystal Maiden   
+         
+                                    name primary\_attr  \textbackslash{}
+         0        npc\_dota\_hero\_antimage          agi   
+         1             npc\_dota\_hero\_axe          str   
+         2            npc\_dota\_hero\_bane          int   
+         3     npc\_dota\_hero\_bloodseeker          agi   
+         4  npc\_dota\_hero\_crystal\_maiden          int   
+         
+                                                        roles  
+         0                       ['Carry', 'Escape', 'Nuker']  
+         1    ['Initiator', 'Durable', 'Disabler', 'Jungler']  
+         2        ['Support', 'Disabler', 'Nuker', 'Durable']  
+         3  ['Carry', 'Disabler', 'Jungler', 'Nuker', 'Ini{\ldots}  
+         4        ['Support', 'Disabler', 'Nuker', 'Jungler']  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{legs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}76}]:}    legs  Unnamed: 0  attack\_type  id  localized\_name  name  primary\_attr  \textbackslash{}
+         0     0          11           11  11              11    11            11   
+         1     2          95           95  95              95    95            95   
+         2     4           7            7   7               7     7             7   
+         3     6           3            3   3               3     3             3   
+         4     8           1            1   1               1     1             1   
+         
+            roles  
+         0     11  
+         1     95  
+         2      7  
+         3      3  
+         4      1  
+\end{Verbatim}
+            
+    \subsubsection{Задача модуля (шаг -
+6)}\label{ux437ux430ux434ux430ux447ux430-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---6}
+
+К нам поступили
+\href{https://stepik.org/media/attachments/course/4852/accountancy.csv}{данные}
+из бухгалтерии о заработках Лупы и Пупы за разные задачи! Посмотрите у
+кого из них больше средний заработок в различных категориях (колонка
+\textbf{Type}) и заполните таблицу, указывая исполнителя с большим
+заработком в каждой из категорий.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}77}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://stepik.org/media/attachments/course/4852/accountancy.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}78}]:}    Unnamed: 0 Executor Type  Salary
+         0           0     Pupa    D      63
+         1           1     Pupa    A     158
+         2           2     Pupa    D     194
+         3           3     Pupa    E     109
+         4           4    Loopa    E     184
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Executor}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{aggregate}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}82}]:}                    Salary
+         Executor Type            
+         Loopa    A      58.000000
+                  B     145.166667
+                  C     154.333333
+                  D     137.714286
+                  E     164.000000
+                  F     238.000000
+         Pupa     A     160.833333
+                  B      77.000000
+                  C      74.500000
+                  D     146.500000
+                  E     131.200000
+                  F     136.250000
+\end{Verbatim}
+            
+    \subsubsection{Задача из модуля (шаг -
+7)}\label{ux437ux430ux434ux430ux447ux430-ux438ux437-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---7}
+
+\textgreater{} Пересчитаем число ног у героев игры Dota2! Сгруппируйте
+героев из
+\href{https://stepik.org/media/attachments/course/4852/dota_hero_stats.csv}{датасэта}
+по числу их ног (колонка \emph{legs}), и заполните их число в задании
+ниже.
+
+\textgreater{} Данные взяты
+\href{https://api.opendota.com/api/heroes}{отсюда}, на этом же
+\href{https://www.opendota.com/}{сайте} можно найти больше разнообразных
+данных по Dota2.
+
+Продолжим исследование героев Dota2. Сгруппируйте по колонкам
+\textbf{attack\_type} и \textbf{primary\_attr} и выберите самый
+распространённый набор характеристик.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}83}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://stepik.org/media/attachments/course/4852/dota\PYZus{}hero\PYZus{}stats.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}84}]:}    Unnamed: 0 attack\_type  id  legs  localized\_name  \textbackslash{}
+         0           0       Melee   1     2       Anti-Mage   
+         1           1       Melee   2     2             Axe   
+         2           2      Ranged   3     4            Bane   
+         3           3       Melee   4     2     Bloodseeker   
+         4           4      Ranged   5     2  Crystal Maiden   
+         
+                                    name primary\_attr  \textbackslash{}
+         0        npc\_dota\_hero\_antimage          agi   
+         1             npc\_dota\_hero\_axe          str   
+         2            npc\_dota\_hero\_bane          int   
+         3     npc\_dota\_hero\_bloodseeker          agi   
+         4  npc\_dota\_hero\_crystal\_maiden          int   
+         
+                                                        roles  
+         0                       ['Carry', 'Escape', 'Nuker']  
+         1    ['Initiator', 'Durable', 'Disabler', 'Jungler']  
+         2        ['Support', 'Disabler', 'Nuker', 'Durable']  
+         3  ['Carry', 'Disabler', 'Jungler', 'Nuker', 'Ini{\ldots}  
+         4        ['Support', 'Disabler', 'Nuker', 'Jungler']  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{attack\PYZus{}type}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{primary\PYZus{}attr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}86}]:}                           Unnamed: 0  id  legs  localized\_name  name  roles
+         attack\_type primary\_attr                                                   
+         Melee       agi                   19  19    19              19    19     19
+                     int                    2   2     2               2     2      2
+                     str                   35  35    35              35    35     35
+         Ranged      agi                   18  18    18              18    18     18
+                     int                   40  40    40              40    40     40
+                     str                    3   3     3               3     3      3
+\end{Verbatim}
+            
+    \subsubsection{Задача из модуля (шаг -
+8)}\label{ux437ux430ux434ux430ux447ux430-ux438ux437-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---8}
+
+Аспирант Ростислав изучает метаболом водорослей и получил такую
+\href{http://stepik.org/media/attachments/course/4852/algae.csv}{табличку}.
+В ней он записал вид каждой водоросли, её род (группа, объединяющая
+близкие виды), группа (ещё одно объединение водорослей в крупные
+фракции) и концентрации анализируемых веществ.
+
+Помогите Ростиславу найти среднюю концентрацию каждого из веществ в
+каждом из родов (колонка \textbf{genus})! Для этого проведите
+группировку датафрэйма, сохранённого в переменной
+\textbf{concentrations}, и примените метод, сохранив результат в
+переменной \textbf{mean\_concentrations}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://stepik.org/media/attachments/course/4852/algae.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}88}]:}                species       genus  group   sucrose    alanin   citrate  \textbackslash{}
+         0    Fucus\_vesiculosus       Fucus  brown  3.001472  3.711498  5.004262   
+         1  Saccharina\_japonica  Saccharina  brown  6.731070  1.255251  5.621499   
+         2       Fucus\_serratus       Fucus  brown  3.276870  0.346431  1.216767   
+         3      Fucus\_distichus       Fucus  brown  6.786996  6.641303  6.423606   
+         4    Cladophora\_fracta  Cladophora  green  3.861470  1.648450  6.940588   
+         
+             glucose  oleic\_acid  
+         0  2.548459    6.405165  
+         1  6.013219    4.156700  
+         2  3.623225    0.304573  
+         3  2.272724    3.393203  
+         4  2.316955    2.528886  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{species}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}89}]:}                                    sucrose    alanin   citrate   glucose  \textbackslash{}
+         species              genus                                                 
+         Ascophyllum\_nodosum  Ascophyllum  6.825467  0.875429  5.253527  3.414961   
+         Cladophora\_compacta  Cladophora   5.712284  3.461692  3.082826  3.343707   
+         Cladophora\_fracta    Cladophora   3.861470  1.648450  6.940588  2.316955   
+         Cladophora\_gracilis  Cladophora   2.452623  6.881024  5.841520  2.740165   
+         Fucus\_distichus      Fucus        6.786996  6.641303  6.423606  2.272724   
+         Fucus\_serratus       Fucus        3.276870  0.346431  1.216767  3.623225   
+         Fucus\_vesiculosus    Fucus        3.001472  3.711498  5.004262  2.548459   
+         Palmaria\_palmata     Palmaria     0.704580  3.176440  5.573905  3.242090   
+         Saccharina\_japonica  Saccharina   6.731070  1.255251  5.621499  6.013219   
+         Saccharina\_latissima Saccharina   1.636122  5.793163  1.071920  3.947968   
+         
+                                           oleic\_acid  
+         species              genus                    
+         Ascophyllum\_nodosum  Ascophyllum    2.432526  
+         Cladophora\_compacta  Cladophora     1.432514  
+         Cladophora\_fracta    Cladophora     2.528886  
+         Cladophora\_gracilis  Cladophora     2.829016  
+         Fucus\_distichus      Fucus          3.393203  
+         Fucus\_serratus       Fucus          0.304573  
+         Fucus\_vesiculosus    Fucus          6.405165  
+         Palmaria\_palmata     Palmaria       2.245538  
+         Saccharina\_japonica  Saccharina     4.156700  
+         Saccharina\_latissima Saccharina     4.817804  
+\end{Verbatim}
+            
+    \subsubsection{Задача из модуля (шаг -
+9)}\label{ux437ux430ux434ux430ux447ux430-ux438ux437-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---9}
+
+\textgreater{}Аспирант Ростислав изучает метаболом водорослей и получил
+такую
+\href{http://stepik.org/media/attachments/course/4852/algae.csv}{табличку}.
+В ней он записал вид каждой водоросли, её род (группа, объединяющая
+близкие виды), группа (ещё одно объединение водорослей в крупные
+фракции) и концентрации анализируемых веществ.
+
+\textgreater{}Помогите Ростиславу найти среднюю концентрацию каждого из
+веществ в каждом из родов (колонка \textbf{genus})! Для этого проведите
+группировку датафрэйма, сохранённого в переменной
+\textbf{concentrations}, и примените метод, сохранив результат в
+переменной \textbf{mean\_concentrations}.
+
+Пользуясь предыдущими
+\href{http://stepik.org/media/attachments/course/4852/algae.csv}{данными},
+укажите через пробел (без запятых) чему равны минимальная, средняя и
+максимальная концентрации аланина (\textbf{alanin}) среди видов рода
+Fucus. Округлите до 2-ого знака, десятичным разделителем является точка.
+
+Формат ответа: 0.55 6.77 7.48
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://stepik.org/media/attachments/course/4852/algae.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}93}]:}                species       genus  group   sucrose    alanin   citrate  \textbackslash{}
+         0    Fucus\_vesiculosus       Fucus  brown  3.001472  3.711498  5.004262   
+         1  Saccharina\_japonica  Saccharina  brown  6.731070  1.255251  5.621499   
+         2       Fucus\_serratus       Fucus  brown  3.276870  0.346431  1.216767   
+         3      Fucus\_distichus       Fucus  brown  6.786996  6.641303  6.423606   
+         4    Cladophora\_fracta  Cladophora  green  3.861470  1.648450  6.940588   
+         
+             glucose  oleic\_acid  
+         0  2.548459    6.405165  
+         1  6.013219    4.156700  
+         2  3.623225    0.304573  
+         3  2.272724    3.393203  
+         4  2.316955    2.528886  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alanin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}95}]:}                alanin                    
+                           min      mean       max
+         genus                                    
+         Ascophyllum  0.875429  0.875429  0.875429
+         Cladophora   1.648450  3.997055  6.881024
+         Fucus        0.346431  3.566411  6.641303
+         Palmaria     3.176440  3.176440  3.176440
+         Saccharina   1.255251  3.524207  5.793163
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{genus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fucus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alanin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{round}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}96}]:} min     0.35
+         mean    3.57
+         max     6.64
+         Name: Fucus, dtype: float64
+\end{Verbatim}
+            
+    \subsubsection{Задача из модуля (шаг -
+10)}\label{ux437ux430ux434ux430ux447ux430-ux438ux437-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---10}
+
+Сгруппируйте
+\href{http://stepik.org/media/attachments/course/4852/algae.csv}{данные}
+по переменной \textbf{group} и соотнесите вопросы с ответами
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://stepik.org/media/attachments/course/4852/algae.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}98}]:}                species       genus  group   sucrose    alanin   citrate  \textbackslash{}
+         0    Fucus\_vesiculosus       Fucus  brown  3.001472  3.711498  5.004262   
+         1  Saccharina\_japonica  Saccharina  brown  6.731070  1.255251  5.621499   
+         2       Fucus\_serratus       Fucus  brown  3.276870  0.346431  1.216767   
+         3      Fucus\_distichus       Fucus  brown  6.786996  6.641303  6.423606   
+         4    Cladophora\_fracta  Cladophora  green  3.861470  1.648450  6.940588   
+         
+             glucose  oleic\_acid  
+         0  2.548459    6.405165  
+         1  6.013219    4.156700  
+         2  3.623225    0.304573  
+         3  2.272724    3.393203  
+         4  2.316955    2.528886  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}103}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sucrose}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}103}]:}         sucrose          
+                      max       min
+          group                    
+          brown  6.825467  1.636122
+          green  5.712284  2.452623
+          red    0.704580  0.704580
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}104}]:} \PY{n}{df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{group}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}104}]:}        species  genus  sucrose  alanin  citrate  glucose  oleic\_acid
+          group                                                               
+          brown        6      6        6       6        6        6           6
+          green        3      3        3       3        3        3           3
+          red          1      1        1       1        1        1           1
+\end{Verbatim}
+            
+    \subsubsection{Модуль 1.7 Визуализация
+Seaborn}\label{ux43cux43eux434ux443ux43bux44c-1.7-ux432ux438ux437ux443ux430ux43bux438ux437ux430ux446ux438ux44f-seaborn}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline 
+        \PY{c+c1}{\PYZsh{}вывод графика в jupyter notebook, а не в отдельном окне}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{students\PYZus{}perfomance} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://stepik.org/media/attachments/course/4852/StudentsPerformance.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}    gender race/ethnicity parental level of education         lunch  \textbackslash{}
+        0  female        group B           bachelor's degree      standard   
+        1  female        group C                some college      standard   
+        2  female        group B             master's degree      standard   
+        3    male        group A          associate's degree  free/reduced   
+        4    male        group C                some college      standard   
+        
+          test preparation course  math score  reading score  writing score  
+        0                    none          72             72             74  
+        1               completed          69             90             88  
+        2                    none          90             95             93  
+        3                    none          47             57             44  
+        4                    none          76             78             75  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{students\PYZus{}perfomance}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}стандартный метод из Pandas}
+        \PY{c+c1}{\PYZsh{}распределение оценок по математики}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f42c8b248d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_112_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}график корреляции между двумя переменными}
+         \PY{n}{students\PYZus{}perfomance}\PY{o}{.}\PY{n}{plot}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}скаттер плот, по оси Х math score}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f42c87662e8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_113_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}Seaborn \PYZhy{} надстройка над matplotlib}
+         \PY{c+c1}{\PYZsh{}облако точек, регрессионная прямая, которая показывает лининейную}
+         \PY{c+c1}{\PYZsh{}аппроксимацию взаимосвязи двух переменных}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{students\PYZus{}perfomance}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} <seaborn.axisgrid.FacetGrid at 0x7f42c83bc048>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_114_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}добавим группирующую переменную, и тогда}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{students\PYZus{}perfomance}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} <seaborn.axisgrid.FacetGrid at 0x7f42c831f898>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_115_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{students\PYZus{}perfomance}\PY{p}{,} \PY{n}{fit\PYZus{}reg}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} <seaborn.axisgrid.FacetGrid at 0x7f42c7fdd7f0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_116_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gender}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{students\PYZus{}perfomance}\PY{p}{,} \PY{n}{fit\PYZus{}reg}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabels}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Math score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabels}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reading score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} <seaborn.axisgrid.FacetGrid at 0x7f42c7fa1a20>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_117_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Задача из модуля (шаг -
+5)}\label{ux437ux430ux434ux430ux447ux430-ux438ux437-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---5}
+
+Представьте, что у вас есть
+\href{https://stepik.org/media/attachments/course/4852/income.csv}{датафрэйм}
+\textbf{df}, хранящий данные о зарплате за месяц, со всего 1-ой колонкой
+\textbf{income}.
+
+Укажите верные способы, как отрисовать простой график зависимости
+зарплаты от даты (то, как отображается дата сейчас не важно, главное сам
+график)
+
+Убедитесь, что вы используте версию seaborn \textgreater{} = 0.9.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://stepik.org/media/attachments/course/4852/income.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}             income
+         2018-11-30      20
+         2018-12-31      60
+         2019-01-31     180
+         2019-02-28     380
+         2019-03-31     660
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lineplot}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f42c7b04e48>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_121_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Задача из модуля (шаг -
+6)}\label{ux437ux430ux434ux430ux447ux430-ux438ux437-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---6}
+
+Вам дан датасэт с 2-мя фичами (колонками). Постройте график
+распределения точек (наблюдений) в пространстве этих 2-ух переменных
+(одна из них будет x, а другая - y) и напишите число кластеров,
+формируемых наблюдениями.
+
+В ответе вы должны указать число кластеров в виде числа (например: 3).
+
+У вас есть неограниченное число попыток. \textbf{Время одной попытки}: 5
+mins
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{datasets\PYZus{}ml\PYZus{}stepik/dataset\PYZus{}1\PYZhy{}7\PYZhy{}6.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{s+}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}54}]:}             x            y
+         0  894.927646   205.129027
+         1  605.804957  1101.988823
+         2  997.963934  1406.187134
+         3  898.554240   200.312598
+         4  595.475078  1107.213419
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}56}]:} <seaborn.axisgrid.FacetGrid at 0x7f42c7754a20>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_125_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Задача из модуля (шаг -
+7)}\label{ux437ux430ux434ux430ux447ux430-ux438ux437-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---7}
+
+Скачайте
+\href{https://stepik.org/media/attachments/course/4852/genome_matrix.csv}{данные},
+представляющие геномные расстояния между видами, и постройте тепловую
+карту, чтобы различия было видно наглядно. В ответ впишите, какая
+картинка соответствует скачанным данным.
+
+Чтобы график отображался как на картинках, добавьте
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{g }\OperatorTok{=} \CommentTok{# ваш код для создания теплокарты, укажите параметр cmap=viridis для той же цветовой схемы}
+\NormalTok{g.xaxis.set_ticks_position(}\StringTok{'top'}\NormalTok{)}
+\NormalTok{g.xaxis.set_tick_params(rotation}\OperatorTok{=}\DecValTok{90}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Вариант 1:
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{https://ucarecdn.com/c3a64c11-6416-401b-ad27-e43b82fd99be/}
+\caption{"image1"}
+\end{figure}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://stepik.org/media/attachments/course/4852/genome\PYZus{}matrix.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}в первом столбце есть специальная ошибка, \PYZdq{}запятая\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:}           species0  species1  species2  species3  species4
+         species0  0.536029  0.920292  0.679708  0.840606  0.430842
+         species1  0.920292  0.862417  0.887593  0.769754  0.203214
+         species2  0.679708  0.887593  0.595156  0.003435  0.096052
+         species3  0.840606  0.769754  0.003435  0.458870  0.029251
+         species4  0.430842  0.203214  0.096052  0.029251  0.642109
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}72}]:} \PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{viridis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{g}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}ticks\PYZus{}position}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{top}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{g}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}tick\PYZus{}params}\PY{p}{(}\PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_129_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Задача из модуля (шаг -
+8)}\label{ux437ux430ux434ux430ux447ux430-ux438ux437-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---8}
+
+Пришло время узнать, \sout{кто самый главный рак} какая роль в dota
+самая распространённая. Скачайте
+\href{https://stepik.org/media/attachments/course/4852/dota_hero_stats.csv}{датасэт}
+с данными о героях из игры dota 2 и посмотрите на распределение их
+возможных ролей в игре (колонка roles). Постройте гистограмму,
+отражающую скольким героям сколько ролей приписывается (по мнению Valve,
+конечно) и напишите какое число ролей у большинства героев.
+
+Это задание можно выполнить многими путями, и рисовать гистограмму
+вообще говоря для этого не нужно.
+
+Данные взяты \href{https://api.opendota.com/api/heroes}{отсюда}, на этом
+же \href{https://www.opendota.com/}{сайте} можно найти больше
+разнообразных данных по dota 2
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://stepik.org/media/attachments/course/4852/dota\PYZus{}hero\PYZus{}stats.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}eval \PYZhy{} исполняет выражение, т.е. если список идет как строка, то после выполнения получаем обычный список}
+         \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roles\PYZus{}cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roles}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb}{eval}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}   attack\_type  id  legs  localized\_name                          name  \textbackslash{}
+         0       Melee   1     2       Anti-Mage        npc\_dota\_hero\_antimage   
+         1       Melee   2     2             Axe             npc\_dota\_hero\_axe   
+         2      Ranged   3     4            Bane            npc\_dota\_hero\_bane   
+         3       Melee   4     2     Bloodseeker     npc\_dota\_hero\_bloodseeker   
+         4      Ranged   5     2  Crystal Maiden  npc\_dota\_hero\_crystal\_maiden   
+         
+           primary\_attr                                              roles  roles\_cnt  
+         0          agi                       ['Carry', 'Escape', 'Nuker']          3  
+         1          str    ['Initiator', 'Durable', 'Disabler', 'Jungler']          4  
+         2          int        ['Support', 'Disabler', 'Nuker', 'Durable']          4  
+         3          agi  ['Carry', 'Disabler', 'Jungler', 'Nuker', 'Ini{\ldots}          5  
+         4          int        ['Support', 'Disabler', 'Nuker', 'Jungler']          4  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{roles\PYZus{}cnt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7fd1526ecc50>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_133_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Задача из модуля (шаг -
+9)}\label{ux437ux430ux434ux430ux447ux430-ux438ux437-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---9}
+
+Теперь перейдём к
+\href{https://stepik.org/media/attachments/course/4852/iris.csv}{цветочкам}.
+Магистрантка Адель решила изучить какие бывают ирисы. Помогите Адель
+узнать об ирисах больше - скачайте датасэт со значениями параметров
+ирисов, постройте их распределения и отметьте правильные утверждения,
+глядя на график.
+
+Распределение должно быть по всем образцам, без разделения на вид. Чтобы
+построить на 1-ом графике распределения для каждого из параметров, можно
+воспользоваться петлёй
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for} \NormalTok{column }\OperatorTok{in} \NormalTok{df:}
+    \CommentTok{# Draw distribution with that column}
+\end{Highlighting}
+\end{Shaded}
+
+Ссылки для изучения:
+
+\href{https://seaborn.pydata.org/generated/seaborn.kdeplot.html}{kdeplot}
+
+\href{https://seaborn.pydata.org/generated/seaborn.distplot.html}{distplot}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://stepik.org/media/attachments/course/4852/iris.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}    sepal length  sepal width  petal length  petal width  species
+        0           5.1          3.5           1.4          0.2        0
+        1           4.9          3.0           1.4          0.2        0
+        2           4.7          3.2           1.3          0.2        0
+        3           4.6          3.1           1.5          0.2        0
+        4           5.0          3.6           1.4          0.2        0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{df}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} sepal length    7.9
+         sepal width     4.4
+         petal length    6.9
+         petal width     2.5
+         species         2.0
+         dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{df}\PY{p}{:}
+             \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{c}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_138_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{df}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:} sepal length    4.3
+         sepal width     2.0
+         petal length    1.0
+         petal width     0.1
+         species         0.0
+         dtype: float64
+\end{Verbatim}
+            
+    \paragraph{Задача из модуля (шаг -
+10)}\label{ux437ux430ux434ux430ux447ux430-ux438ux437-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---10}
+
+Рассмотрим длину лепестков (\textbf{petal length}) подробнее и
+воспользуемся для этого violin плотом. Нарисуйте распределение длины
+лепестков ирисов из
+\href{https://stepik.org/media/attachments/course/4852/iris.csv}{предыдущего
+датасэта с помощью} violin плота и выберите правильный (такой же)
+вариант среди предложенных
+
+\href{https://seaborn.pydata.org/generated/seaborn.violinplot.html}{Мануал
+по рисованию violin плотов}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://stepik.org/media/attachments/course/4852/iris.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}    sepal length  sepal width  petal length  petal width  species
+         0           5.1          3.5           1.4          0.2        0
+         1           4.9          3.0           1.4          0.2        0
+         2           4.7          3.2           1.3          0.2        0
+         3           4.6          3.1           1.5          0.2        0
+         4           5.0          3.6           1.4          0.2        0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{violinplot}\PY{p}{(}\PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{petal length}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7ff6621e3080>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_143_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{Задача из модуля (шаг -
+11)}\label{ux437ux430ux434ux430ux447ux430-ux438ux437-ux43cux43eux434ux443ux43bux44f-ux448ux430ux433---11}
+
+Продолжаем изучение ирисов! Ещё один важный тип графиков - pairplot,
+отражающий зависимость пар переменных друг от друга, а также
+распределение каждой из переменных. Постройте его и посмотрите на
+scatter плоты для каждой из пар фичей. Какая из пар навскидку имеет
+наибольшую корреляцию?
+
+Также обратите внимание, что можно разделить на группы с помощью
+параметра \textbf{hue}.
+
+Ссылки для изучения:
+
+\href{https://seaborn.pydata.org/generated/seaborn.pairplot.html}{pairplot}
+
+\textbf{Tips:} \textgreater{}Напоминание: если совсем просто, то
+"коррелируют" == "меняются одинаково". Т.е. две величины
+\emph{коррелируют} между собой, если \emph{изменение одной величины
+влечёт такое же изменение другой}. Значит чем сильнее корреляция между
+двумя величинами \(x\) и \(y\), тем меньше точки отклоняются от прямой
+\(y=x\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://stepik.org/media/attachments/course/4852/iris.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}18}]:}    sepal length  sepal width  petal length  petal width  species
+         0           5.1          3.5           1.4          0.2        0
+         1           4.9          3.0           1.4          0.2        0
+         2           4.7          3.2           1.3          0.2        0
+         3           4.6          3.1           1.5          0.2        0
+         4           5.0          3.6           1.4          0.2        0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{species}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}результат petal length and petal width}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} <seaborn.axisgrid.PairGrid at 0x7ff63cfaaf28>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_147_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Практические задания
+Pandas}\label{ux43fux440ux430ux43aux442ux438ux447ux435ux441ux43aux438ux435-ux437ux430ux434ux430ux43dux438ux44f-pandas}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://stepik.org/media/attachments/course/4852/my\PYZus{}stat.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}    V1    V2 V3   V4
+         0   2  13.0  B  1.0
+         1  -1   7.0  B  1.0
+         2   0  11.0  A  0.0
+         3   2  11.0  A  2.0
+         4   0  10.0  B -1.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{subset\PYZus{}1} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{]}
+         \PY{n}{subset\PYZus{}1}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}    V1 V3
+         0   2  B
+         1  -1  B
+         2   0  A
+         3   2  A
+         4   0  B
+         5   2  A
+         6   0  A
+         7   1  A
+         8   0  B
+         9  -1  A
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{not\PYZus{}subset\PYZus{}2} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}
+         \PY{n}{subset\PYZus{}2} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{not\PYZus{}subset\PYZus{}2}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}
+         \PY{n}{subset\PYZus{}2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}37}]:}      V2   V4
+         0  13.0  1.0
+         2  11.0  0.0
+         3  11.0  2.0
+         5  11.0  0.0
+         6   9.0  2.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+         
+         \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://stepik.org/media/attachments/course/4852/my\PYZus{}stat\PYZus{}1.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}39}]:}    session\_value  time group  n\_users
+         0            0.0    12     B        9
+         1            NaN    11     A       -1
+         2            1.0     8     A        1
+         3            2.0     9     B        3
+         4            2.0    10     B        9
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{df2} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{df2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}58}]:}    session\_value  time group  n\_users
+         0            0.0    12     B        9
+         1            0.0    11     A       -1
+         2            1.0     8     A        1
+         3            2.0     9     B        3
+         4            2.0    10     B        9
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{n}{mean\PYZus{}positive\PYZus{}n\PYZus{}users} \PY{o}{=} \PY{n}{df2}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}users \PYZgt{}= 0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}users}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{p}{)}
+         \PY{n}{mean\PYZus{}positive\PYZus{}n\PYZus{}users}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}59}]:} 5.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{n}{df2}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}users}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}users}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{mean\PYZus{}positive\PYZus{}n\PYZus{}users}
+         \PY{n}{df2}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}60}]:}    session\_value  time group  n\_users
+         0            0.0    12     B      9.0
+         1            0.0    11     A      5.0
+         2            1.0     8     A      1.0
+         3            2.0     9     B      3.0
+         4            2.0    10     B      9.0
+         5            3.0     8     A      8.0
+         6            0.0    11     B      5.0
+         7            0.0     9     A      4.0
+         8            0.0     8     B      5.0
+         9            0.0     9     A      5.0
+\end{Verbatim}
+            
+    \subsubsection{Stepik ML-Contest}\label{stepik-ml-contest}
+
+    Практическим проектом нашего курса будет анализ активности студентов
+онлайн курса \href{https://stepik.org/course/129/syllabus}{Введение в
+анализ данных в R}, спасибо команде stepik, что предоставили
+анонимизированные данные.
+
+В этом модуле, мы разберемся с задачей, начнем исследовать данные, а об
+условиях соревнований, призах и тайных стэпах раскажу во втором модуле!
+
+Описание данных:
+
+\href{https://stepik.org/media/attachments/course/4852/event_data_train.zip}{events\_train.csv}
+- данные о действиях, которые совершают студенты со стэпами
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{step\_id} - id стэпа
+\item
+  \textbf{user\_id} - анонимизированный id юзера
+\item
+  \textbf{timestamp} - время наступления события в формате unix date
+\item
+  \textbf{action} - событие, возможные значения:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  discovered - пользователь перешел на стэп
+\item
+  viewed - просмотр шага,
+\item
+  started\_attempt - начало попытки решить шаг, ранее нужно было явно
+  нажать на кнопку - начать решение, перед тем как приступить к решению
+  практического шага
+\item
+  passed - удачное решение практического шага
+\end{itemize}
+
+\href{https://stepik.org/media/attachments/course/4852/submissions_data_train.zip}{submissions\_train.csv}
+- данные о времени и статусах сабмитов к практическим заданиям
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{step\_id} - id стэпа
+\item
+  \textbf{timestamp} - время отправки решения в формате unix date
+\item
+  \textbf{submission\_status} - статус решения
+\item
+  \textbf{user\_id} - анонимизированный id юзера
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}чтение zip архива}
+        \PY{n}{events\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{datasets\PYZus{}ml\PYZus{}stepik/event\PYZus{}data\PYZus{}train.zip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{compression} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{zip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{events\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}    step\_id   timestamp      action  user\_id
+        0    32815  1434340848      viewed    17632
+        1    32815  1434340848      passed    17632
+        2    32815  1434340848  discovered    17632
+        3    32811  1434340895  discovered    17632
+        4    32811  1434340895      viewed    17632
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}timestamp \PYZhy{} это Unix time. Секунды от 01.01.1970}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}самый важный этап, проверить что данные валидные}
+        \PY{c+c1}{\PYZsh{}например посмотрим какие вообще есть значения в action}
+        
+        \PY{n}{events\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{action}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} array(['viewed', 'passed', 'discovered', 'started\_attempt'], dtype=object)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}преобразуем данные так, чтобы видеть всю картину}
+        
+        \PY{c+c1}{\PYZsh{}переведем timestamp в обычный вид}
+        \PY{n}{events\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{events\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{unit}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{events\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}    step\_id   timestamp      action  user\_id                date
+        0    32815  1434340848      viewed    17632 2015-06-15 04:00:48
+        1    32815  1434340848      passed    17632 2015-06-15 04:00:48
+        2    32815  1434340848  discovered    17632 2015-06-15 04:00:48
+        3    32811  1434340895  discovered    17632 2015-06-15 04:01:35
+        4    32811  1434340895      viewed    17632 2015-06-15 04:01:35
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{events\PYZus{}data}\PY{o}{.}\PY{n}{dtypes}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} step\_id               int64
+        timestamp             int64
+        action               object
+        user\_id               int64
+        date         datetime64[ns]
+        dtype: object
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{events\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} Timestamp('2015-06-15 04:00:48')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{events\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} Timestamp('2018-05-19 23:33:31')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{events\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{events\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{date}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{events\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}    step\_id   timestamp      action  user\_id                date         day
+         0    32815  1434340848      viewed    17632 2015-06-15 04:00:48  2015-06-15
+         1    32815  1434340848      passed    17632 2015-06-15 04:00:48  2015-06-15
+         2    32815  1434340848  discovered    17632 2015-06-15 04:00:48  2015-06-15
+         3    32811  1434340895  discovered    17632 2015-06-15 04:01:35  2015-06-15
+         4    32811  1434340895      viewed    17632 2015-06-15 04:01:35  2015-06-15
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{events\PYZus{}data}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PYZbs{}
+             \PY{o}{.}\PY{n}{user\PYZus{}id}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f10ef3221d0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_173_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}увеличим график, чтобы даты непересикались}
+         
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{rc}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{(}\PY{l+m+mi}{9}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{events\PYZus{}data}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PYZbs{}
+             \PY{o}{.}\PY{n}{user\PYZus{}id}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f10eefd10f0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_175_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}посмотрим как распределены по количеству баллов которые они набрали}
+         
+         \PY{c+c1}{\PYZsh{}НЕПРАВИЛЬНОЕ решение}
+         \PY{n}{events\PYZus{}data}\PY{p}{[}\PY{n}{events\PYZus{}data}\PY{o}{.}\PY{n}{action} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{passed}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PYZbs{}
+             \PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)} \PYZbs{}
+             \PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{step\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PYZbs{}
+             \PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{step\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{passed\PYZus{}steps}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{passed\PYZus{}steps}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f10eef4cd68>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_176_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}Что не так с нашими расчетами сумарного количества пройденных стэпов?}
+         
+         \PY{c+c1}{\PYZsh{}Ответ \PYZhy{} Пользователи, у которых нет ни одного passed стэпа вообще не попадут в результат}
+         
+         \PY{c+c1}{\PYZsh{}Проверять данные \PYZhy{} к примеру количество пользователей}
+         \PY{c+c1}{\PYZsh{}Правильное решение}
+         
+         \PY{n}{events\PYZus{}data}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{action}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{step\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fill\PYZus{}value}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PYZbs{}
+             \PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} action  user\_id  discovered  passed  started\_attempt  viewed
+         0             1           1       0                0       1
+         1             2           9       9                2      10
+         2             3          91      87               30     192
+         3             5          11      11                4      12
+         4             7           1       1                0       1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{events\PYZus{}data\PYZus{}table} \PY{o}{=} \PY{n}{events\PYZus{}data}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{action}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{values}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{step\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{aggfunc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fill\PYZus{}value}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PYZbs{}
+             \PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{events\PYZus{}data\PYZus{}table}\PY{o}{.}\PY{n}{discovered}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+         \PY{n}{events\PYZus{}data\PYZus{}table}\PY{o}{.}\PY{n}{passed}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}19}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f10eef290f0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_179_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}число пройденных степов можем посмотреть по другому}
+         
+         \PY{n}{submissions\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{datasets\PYZus{}ml\PYZus{}stepik/submissions\PYZus{}data\PYZus{}train.zip}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{submissions\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}    step\_id   timestamp submission\_status  user\_id
+         0    31971  1434349275           correct    15853
+         1    31972  1434348300           correct    15853
+         2    31972  1478852149             wrong    15853
+         3    31972  1478852164           correct    15853
+         4    31976  1434348123             wrong    15853
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{submissions\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{submissions\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{unit}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{submissions\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{submissions\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{date}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{submissions\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}    step\_id   timestamp submission\_status  user\_id                date  \textbackslash{}
+         0    31971  1434349275           correct    15853 2015-06-15 06:21:15   
+         1    31972  1434348300           correct    15853 2015-06-15 06:05:00   
+         2    31972  1478852149             wrong    15853 2016-11-11 08:15:49   
+         3    31972  1478852164           correct    15853 2016-11-11 08:16:04   
+         4    31976  1434348123             wrong    15853 2015-06-15 06:02:03   
+         
+                   day  
+         0  2015-06-15  
+         1  2015-06-15  
+         2  2016-11-11  
+         3  2016-11-11  
+         4  2015-06-15  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}73}]:} \PY{c+c1}{\PYZsh{}для каждого user посчитаем сколько у него было correct submit}
+         \PY{n}{users\PYZus{}scores} \PY{o}{=} \PY{n}{submissions\PYZus{}data}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{submission\PYZus{}status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{values}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{step\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{aggfunc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{fill\PYZus{}value}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{}посмотрим распределение перерывов у пользователей}
+         
+         \PY{n}{gap\PYZus{}data} \PY{o}{=} \PY{n}{events\PYZus{}data}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{drop\PYZus{}duplicates}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{day}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PYZbs{}
+             \PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n+nb}{list}\PY{p}{)} \PYZbs{}
+             \PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{diff}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{gap\PYZus{}data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{concatenate}\PY{p}{(}\PY{n}{gap\PYZus{}data}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{gap\PYZus{}data} \PY{o}{=} \PY{n}{gap\PYZus{}data} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{24} \PY{o}{*} \PY{l+m+mi}{60} \PY{o}{*} \PY{l+m+mi}{60}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{gap\PYZus{}data}\PY{p}{[}\PY{n}{gap\PYZus{}data} \PY{o}{\PYZlt{}} \PY{l+m+mi}{200}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}большая часть пользователей вкладывается в промежуток 0\PYZhy{}25 дней}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x7f10e884f2e8>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_189_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{gap\PYZus{}data}\PY{o}{.}\PY{n}{quantile}\PY{p}{(}\PY{l+m+mf}{0.90}\PY{p}{)} \PY{c+c1}{\PYZsh{}только 10\PYZpc{} пользователей возвращаются на курс после перерыва в 2 месяца.}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} 18.325995370370403
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{n}{now} \PY{o}{=} \PY{l+m+mi}{1526772811}
+         \PY{n}{drop\PYZus{}out\PYZus{}threshold} \PY{o}{=} \PY{l+m+mi}{259200} \PY{c+c1}{\PYZsh{}30 дней}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{n}{users\PYZus{}data} \PY{o}{=} \PY{n}{events\PYZus{}data}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{as\PYZus{}index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)} \PYZbs{}
+             \PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{last\PYZus{}timestamp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{n}{users\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{is\PYZus{}gone\PYZus{}user}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{now} \PY{o}{\PYZhy{}} \PY{n}{users\PYZus{}data}\PY{o}{.}\PY{n}{last\PYZus{}timestamp}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{n}{drop\PYZus{}out\PYZus{}threshold}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}71}]:} \PY{n}{users\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}71}]:}    user\_id  last\_timestamp  is\_gone\_user
+         0        1      1472827464          True
+         1        2      1519226966          True
+         2        3      1444581588          True
+         3        5      1499859939          True
+         4        7      1521634660          True
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}76}]:} \PY{n}{users\PYZus{}data} \PY{o}{=} \PY{n}{users\PYZus{}data}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{users\PYZus{}scores}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}78}]:} \PY{n}{users\PYZus{}data} \PY{o}{=} \PY{n}{users\PYZus{}data}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{events\PYZus{}data\PYZus{}table}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}79}]:} \PY{n}{users\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}79}]:}    user\_id  last\_timestamp  is\_gone\_user  correct  wrong  discovered  passed  \textbackslash{}
+         0        1      1472827464          True      0.0    0.0           1       0   
+         1        2      1519226966          True      2.0    0.0           9       9   
+         2        3      1444581588          True     29.0   23.0          91      87   
+         3        5      1499859939          True      2.0    2.0          11      11   
+         4        7      1521634660          True      0.0    0.0           1       1   
+         
+            started\_attempt  viewed  
+         0                0       1  
+         1                2      10  
+         2               30     192  
+         3                4      12  
+         4                0       1  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}81}]:} \PY{n}{users\PYZus{}days} \PY{o}{=} \PY{n}{events\PYZus{}data}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{day}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}frame}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}84}]:} \PY{n}{users\PYZus{}data} \PY{o}{=} \PY{n}{users\PYZus{}data}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{users\PYZus{}days}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{n}{users\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}88}]:}    user\_id  last\_timestamp  is\_gone\_user  correct  wrong  discovered  passed  \textbackslash{}
+         0        1      1472827464          True      0.0    0.0           1       0   
+         1        2      1519226966          True      2.0    0.0           9       9   
+         2        3      1444581588          True     29.0   23.0          91      87   
+         3        5      1499859939          True      2.0    2.0          11      11   
+         4        7      1521634660          True      0.0    0.0           1       1   
+         
+            started\_attempt  viewed  day  
+         0                0       1    1  
+         1                2      10    2  
+         2               30     192    7  
+         3                4      12    2  
+         4                0       1    1  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{users\PYZus{}data}\PY{o}{.}\PY{n}{user\PYZus{}id}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}86}]:} 19234
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{n}{events\PYZus{}data}\PY{o}{.}\PY{n}{user\PYZus{}id}\PY{o}{.}\PY{n}{nunique}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}87}]:} 19234
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{users\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{passed\PYZus{}corse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{users\PYZus{}data}\PY{o}{.}\PY{n}{passed} \PY{o}{\PYZgt{}} \PY{l+m+mi}{170}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{n}{users\PYZus{}data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}90}]:}    user\_id  last\_timestamp  is\_gone\_user  correct  wrong  discovered  passed  \textbackslash{}
+         0        1      1472827464          True      0.0    0.0           1       0   
+         1        2      1519226966          True      2.0    0.0           9       9   
+         2        3      1444581588          True     29.0   23.0          91      87   
+         3        5      1499859939          True      2.0    2.0          11      11   
+         4        7      1521634660          True      0.0    0.0           1       1   
+         
+            started\_attempt  viewed  day  passed\_corse  
+         0                0       1    1         False  
+         1                2      10    2         False  
+         2               30     192    7         False  
+         3                4      12    2         False  
+         4                0       1    1         False  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{n}{users\PYZus{}data}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{passed\PYZus{}corse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{count}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}91}]:}               user\_id  last\_timestamp  is\_gone\_user  correct  wrong  \textbackslash{}
+         passed\_corse                                                          
+         False           17809           17809         17809    17809  17809   
+         True             1425            1425          1425     1425   1425   
+         
+                       discovered  passed  started\_attempt  viewed    day  
+         passed\_corse                                                      
+         False              17809   17809            17809   17809  17809  
+         True                1425    1425             1425    1425   1425  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{p}{(}\PY{l+m+mi}{100} \PY{o}{*} \PY{l+m+mi}{1425}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{l+m+mi}{1425} \PY{o}{+} \PY{l+m+mi}{17809}\PY{p}{)} \PY{c+c1}{\PYZsh{}столько процентов пользователей прошло курс}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}93}]:} 7.408755329104711
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{n}{events\PYZus{}data}\PY{o}{.}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}94}]:}    step\_id   timestamp      action  user\_id                date         day
+         0    32815  1434340848      viewed    17632 2015-06-15 04:00:48  2015-06-15
+         1    32815  1434340848      passed    17632 2015-06-15 04:00:48  2015-06-15
+         2    32815  1434340848  discovered    17632 2015-06-15 04:00:48  2015-06-15
+         3    32811  1434340895  discovered    17632 2015-06-15 04:01:35  2015-06-15
+         4    32811  1434340895      viewed    17632 2015-06-15 04:01:35  2015-06-15
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{}id \PYZhy{} Карпова}
+         \PY{n}{events\PYZus{}data}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{index}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{user\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{columns}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{action}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{values}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{step\PYZus{}id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{aggfunc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{n}{fill\PYZus{}value}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{started\PYZus{}attempt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}62}]:} action  user\_id  discovered  passed  started\_attempt  viewed
+         781        1046         128     124              721    8122
+         2611       3572         194     193              550    6968
+         6062       8394         131      94              337    1070
+         4825       6662         198     197              285    1054
+         1204       1649         194     194              281     807
+\end{Verbatim}
+            
+    Обязательно запомните
+\href{https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html}{типы
+merge и join}, это справделиво не только для Pandas, но и для работы с
+базами данных.
+
+\includegraphics{https://ucarecdn.com/f03da508-b426-42c6-be37-ccd7627ca8a4/}
+\includegraphics{https://ucarecdn.com/4614d509-542e-44ca-ad74-ca27b78ad787/}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
